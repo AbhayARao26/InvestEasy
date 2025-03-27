@@ -24,7 +24,9 @@ app.add_middleware(
 # Configure Gemini API
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=GOOGLE_API_KEY)
-model = genai.GenerativeModel('gemini-pro')
+
+# Update the model name to the correct version
+model = genai.GenerativeModel('gemini-1.5-flash')
 
 # Pydantic models
 class ChatMessage(BaseModel):
@@ -45,14 +47,26 @@ async def root():
 @app.post("/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
     try:
+        # Create a financial context prompt
+        financial_context = """You are a knowledgeable financial advisor assistant. 
+        Help users with financial queries, investment advice, and financial literacy. 
+        Provide clear, informative responses while noting that this is general advice 
+        and users should consult with professional financial advisors for personalized guidance.
+        """
+        
         # Convert messages to Gemini format
         chat = model.start_chat(history=[])
         
-        # Process each message
-        for message in request.messages:
-            if message.role == "user":
-                response = chat.send_message(message.content)
-                return ChatResponse(response=response.text)
+        # Add context to the user's message
+        enhanced_prompt = f"{financial_context}\n\nUser Query: {request.messages[-1].content}"
+        
+        # Send message with context
+        response = chat.send_message(enhanced_prompt)
+        
+        if not response.text:
+            return ChatResponse(response="I apologize, but I couldn't generate a response. Please try rephrasing your question.")
+            
+        return ChatResponse(response=response.text)
             
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

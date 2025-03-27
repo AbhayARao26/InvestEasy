@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import { Box, Paper, Container } from '@mui/material';
+import { Box, Paper, Container, Alert, CircularProgress } from '@mui/material';
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
 
 const ChatInterface = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSendMessage = async (message) => {
     try {
       setLoading(true);
+      setError(null);
+      
       // Add user message to chat
       const userMessage = { role: 'user', content: message };
       setMessages(prev => [...prev, userMessage]);
@@ -25,8 +28,16 @@ const ChatInterface = () => {
         }),
       });
 
+      if (!response.ok) {
+        throw new Error('Failed to get response from server');
+      }
+
       const data = await response.json();
       
+      if (!data.response) {
+        throw new Error('Empty response received');
+      }
+
       // Add AI response to chat
       setMessages(prev => [...prev, {
         role: 'assistant',
@@ -34,6 +45,7 @@ const ChatInterface = () => {
       }]);
     } catch (error) {
       console.error('Error sending message:', error);
+      setError(error.message);
     } finally {
       setLoading(false);
     }
@@ -46,6 +58,16 @@ const ChatInterface = () => {
           {messages.map((msg, index) => (
             <ChatMessage key={index} message={msg} />
           ))}
+          {loading && (
+            <Box display="flex" justifyContent="center" my={2}>
+              <CircularProgress />
+            </Box>
+          )}
+          {error && (
+            <Alert severity="error" sx={{ mt: 2 }}>
+              {error}
+            </Alert>
+          )}
         </Box>
         <ChatInput onSend={handleSendMessage} disabled={loading} />
       </Paper>
@@ -53,4 +75,4 @@ const ChatInterface = () => {
   );
 };
 
-export default ChatInterface; 
+export default ChatInterface;

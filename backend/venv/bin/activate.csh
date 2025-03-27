@@ -8,7 +8,7 @@ alias deactivate 'test $?_OLD_VIRTUAL_PATH != 0 && setenv PATH "$_OLD_VIRTUAL_PA
 # Unset irrelevant variables.
 deactivate nondestructive
 
-setenv VIRTUAL_ENV "/Users/abhayarao/Documents/PES Engineering/3rd YEAR/6th SEM/GDG On Campus Solution/InvestEase/backend/venv"
+setenv VIRTUAL_ENV "/Users/abhayarao/Documents/PES Engineering/3rd YEAR/6th SEM/GDG On Campus Solution/InvestEasy/backend/venv"
 
 set _OLD_VIRTUAL_PATH="$PATH"
 setenv PATH "$VIRTUAL_ENV/bin:$PATH"
