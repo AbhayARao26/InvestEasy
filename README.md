@@ -1,84 +1,75 @@
-# InvestEasy - GenAI Financial Assistant
+# InvestEasy - AI-Powered Financial Assistant
 
-A conversational AI-powered financial assistant that helps users make informed investment decisions and improve their financial literacy.
+InvestEasy is a comprehensive financial assistant platform that helps users make informed investment decisions using AI-driven insights, real-time market data, and personalized recommendations.
 
 ## Features
 
-- 🤖 Conversational AI for financial queries
-- 📊 Personalized investment recommendations
-- 📈 Real-time market insights
-- 💼 Portfolio tracking
-- ⚠️ Regulatory compliance & risk warnings
+- User Authentication & Onboarding
+- Personalized Investment Dashboard
+- AI-Powered Chatbot Assistant
+- Real-time Stock Market Data
+- Portfolio Management
+- News & Alerts with Sentiment Analysis
+- Chat History
+- Personalized Recommendations
 
 ## Tech Stack
 
-- Frontend: React.js
-- Backend: Python (FastAPI)
-- AI/ML: Google Gemini API
-- Database: Firebase
-- Cloud Services: Google Cloud Platform
-  - Cloud Functions
-  - Cloud Run
-  - BigQuery
+- Frontend: Next.js (React)
+- Backend: Node.js with Express
+- Database: MongoDB
+- APIs: AlphaVantage, News API
+- AI: Gemini/LLM for chatbot, Reinforcement Learning for recommendations
 
-## Project Structure
+## Prerequisites
 
-```
-financial-assistant/
-├── frontend/           # React.js frontend application
-├── backend/           # FastAPI backend service
-├── functions/         # Cloud Functions
-├── models/           # ML models and utilities
-└── docs/             # Documentation
-```
+- Node.js (v14 or higher)
+- MongoDB
+- API keys for:
+  - AlphaVantage
+  - News API
+  - Gemini/LLM API
 
 ## Setup Instructions
 
 1. Clone the repository
 2. Install dependencies:
    ```bash
-   # Backend
-   cd backend
-   pip install -r requirements.txt
-
-   # Frontend
+   # Install frontend dependencies
    cd frontend
    npm install
+
+   # Install backend dependencies
+   cd ../backend
+   npm install
    ```
+
 3. Set up environment variables:
    - Create `.env` files in both frontend and backend directories
-   - Add necessary API keys and configuration
+   - Add required API keys and configuration
 
-4. Run the application:
+4. Start the development servers:
    ```bash
-   # Backend
+   # Start backend server
    cd backend
-   uvicorn main:app --reload
+   npm run dev
 
-   # Frontend
+   # Start frontend server
    cd frontend
-   npm start
+   npm run dev
    ```
 
-## Development Roadmap
+5. Access the application at `http://localhost:3000`
 
-1. Phase 1: Basic Setup & Core Features
-   - Project structure setup
-   - Basic frontend UI
-   - Backend API setup
-   - Gemini API integration
+## Project Structure
 
-2. Phase 2: Investment Features
-   - User profile management
-   - Risk assessment
-   - Basic investment recommendations
-   - Portfolio tracking
-
-3. Phase 3: Advanced Features
-   - Real-time market data
-   - Advanced analytics
-   - Regulatory compliance checks
-   - Performance optimization
+```
+investeasy/
+├── frontend/           # Next.js frontend application
+├── backend/           # Node.js backend server
+├── docs/             # Documentation
+└── README.md         # Project documentation
+```
 
 ## Contributing
 
